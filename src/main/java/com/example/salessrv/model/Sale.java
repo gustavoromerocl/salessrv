@@ -40,7 +40,7 @@ public class Sale {
   @JsonIgnore
   private List<Product> products;
 
-  public List<ProductDTO> getCommentDTOs() {
+  public List<ProductDTO> getProductDTOs() {
     if (products != null) {
       return products.stream()
           .map(product -> new ProductDTO(product.getName(), product.getQuantity(), product.getPrice()))
