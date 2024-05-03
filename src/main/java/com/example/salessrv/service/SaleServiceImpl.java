@@ -1,5 +1,7 @@
 package com.example.salessrv.service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,4 +45,39 @@ public class SaleServiceImpl implements SaleService {
   public void deleteSale(Long id) {
     saleRepository.deleteById(id);
   }
+
+  @Override
+  public int getTotalSalesDaily() {
+    List<Sale> sales = saleRepository.findAll();
+    LocalDate today = LocalDate.now();
+    
+    return sales.stream()
+        .filter(sale -> sale.getSaleDate().isEqual(today))
+        .flatMap(sale -> sale.getProducts().stream())
+        .mapToInt(product -> product.getQuantity() * product.getPrice())
+        .sum();
+  };
+
+  @Override
+  public int getTotalSalesMonthly() {
+    List<Sale> sales = saleRepository.findAll();
+    YearMonth thisMonth = YearMonth.now();
+    return sales.stream()
+        .filter(sale -> YearMonth.from(sale.getSaleDate()).equals(thisMonth))
+        .flatMap(sale -> sale.getProducts().stream())
+        .mapToInt(product -> product.getQuantity() * product.getPrice())
+        .sum();
+  };
+
+  @Override
+  public int getTotalSalesAnnual() {
+    List<Sale> sales = saleRepository.findAll();
+    int thisYear = LocalDate.now().getYear();
+    return sales.stream()
+        .filter(sale -> sale.getSaleDate().getYear() == thisYear)
+        .flatMap(sale -> sale.getProducts().stream())
+        .mapToInt(product -> product.getQuantity() * product.getPrice())
+        .sum();
+  };
+
 }

@@ -97,4 +97,25 @@ public class SaleController {
     log.info("Eliminado la venta de id:" + id);
     saleService.deleteSale(id);
   }
+
+  @GetMapping("/daily")
+  public int getTotalSalesDaily() {
+    log.info("GET /sales/daily");
+    log.info("Retornando total de ventas diarias");
+    return saleService.getTotalSalesDaily();
+  }
+
+  @GetMapping("/monthly")
+  public int getTotalSalesMonthly() {
+    log.info("GET /sales/monthly");
+    log.info("Retornando total de ventas mensuales");
+    return saleService.getTotalSalesMonthly();
+  }
+
+  @GetMapping("/annual")
+  public int getTotalSalesAnnual() {
+    log.info("GET /sales");
+    log.info("Retornando total de ventas anuales");
+    return saleService.getTotalSalesAnnual();
+  }
 }

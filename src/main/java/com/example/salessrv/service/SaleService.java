@@ -15,4 +15,10 @@ public interface SaleService {
   Sale updateSale(Long id, Sale sale);
 
   void deleteSale(Long id);
+
+  int getTotalSalesDaily();
+
+  int getTotalSalesMonthly();
+
+  int getTotalSalesAnnual();
 }
