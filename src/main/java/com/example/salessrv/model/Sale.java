@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.example.salessrv.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,7 +29,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Sale {
+public class Sale extends RepresentationModel<Sale>{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -40,7 +42,7 @@ public class Sale {
   @JsonIgnore
   private List<Product> products;
 
-  public List<ProductDTO> getCommentDTOs() {
+  public List<ProductDTO> getProductDTOs() {
     if (products != null) {
       return products.stream()
           .map(product -> new ProductDTO(product.getName(), product.getQuantity(), product.getPrice()))
