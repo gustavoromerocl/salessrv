@@ -3,6 +3,6 @@ FROM openjdk:17-ea-24-oracle
 WORKDIR /app
 COPY target/salessrv-0.0.1-SNAPSHOT.jar app.jar
 COPY Wallet_DB_TEST /app/oracle_wallet
-EXPOSE 8080
+EXPOSE 8081
 
 CMD [ "java", "-jar", "app.jar" ]
